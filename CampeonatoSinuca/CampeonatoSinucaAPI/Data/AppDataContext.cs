@@ -7,4 +7,13 @@ public class AppDataContext : DbContext
     {
         optionsBuilder.UseSqlite("Data Source=Participantes.db");
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Participante>()
+            .HasIndex(p => p.Cpf)
+            .IsUnique();
+    }
 }
