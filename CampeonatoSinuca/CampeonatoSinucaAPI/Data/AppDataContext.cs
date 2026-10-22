@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-public class AppDbContext : DbContext
+public class AppDataContext : DbContext
 {
-    public DbSet<Produto> Produtos { get; set; }
+    public DbSet<Participante> Participantes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

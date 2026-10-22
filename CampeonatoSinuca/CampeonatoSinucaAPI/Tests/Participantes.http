@@ -1,2 +1,5 @@
 ### Raíz do projeto
 GET http://localhost:5059
+
+
+GET http://localhost:5059/api/participantes/listar
