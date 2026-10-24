@@ -18,4 +18,6 @@ app.MapGet("/api/participantes/listar", (
     return Results.Ok(ctx.Participantes.ToList());
 });
 
+
+
 app.Run();

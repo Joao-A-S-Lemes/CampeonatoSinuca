@@ -5,7 +5,7 @@ public class AppDataContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=Participantes.db");
+        optionsBuilder.UseSqlite("Data Source=Data/Participantes.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
