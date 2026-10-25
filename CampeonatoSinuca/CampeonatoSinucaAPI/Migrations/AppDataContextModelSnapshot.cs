@@ -25,14 +25,14 @@ namespace CampeonatoSinucaAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Idade")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Sexo")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

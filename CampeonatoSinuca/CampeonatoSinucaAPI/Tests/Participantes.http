@@ -3,3 +3,14 @@ GET http://localhost:5059
 
 ### Listar
 GET http://localhost:5059/api/participantes/listar
+
+### Cadastrar Participante
+POST http://localhost:5059/api/participante/cadastrar
+Content-Type: application/json
+
+{
+    "Nome" : "João",
+    "Cpf" : "12345678900",
+    "Idade" : 19,
+    "Genero" : "Masculino"
+}
