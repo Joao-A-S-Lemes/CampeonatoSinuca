@@ -253,5 +253,41 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
     });
 });
 
+//Gerar chaveamento
+app.MapPost("/api/partidas/gerar/{modalidadeId}",
+    ([FromRoute] int modalidadeId,
+    [FromServices] AppDataContext ctx) =>
+{
+    //Pega os participantes inscritos nessa modalidade, em ordem aleatoria
+    List<int> inscritos = ctx.Inscricoes
+        .Where(i => i.ModalidadeId == modalidadeId)
+        .Select(i => i.ParticipanteId)
+        .ToList()
+        .OrderBy(_ => Random.Shared.Next())
+        .ToList();
+
+    if (inscritos.Count < 2)
+    {
+        return Results.BadRequest("São necessários pelo menos 2 participantes inscritos");
+    }
+
+    //Forma os pares
+    List<Partida> partidas = new List<Partida>();
+    for (int i = 0; i + 1 < inscritos.Count; i += 2)
+    {
+        partidas.Add(new Partida
+        {
+            ModalidadeId = modalidadeId,
+            Participante1Id = inscritos[i],
+            Participante2Id = inscritos[i + 1],
+            Data = DateTime.Now
+        });
+    }
+
+    ctx.Partidas.AddRange(partidas);
+    ctx.SaveChanges();
+
+    return Results.Ok(partidas);
+});
 
 app.Run();

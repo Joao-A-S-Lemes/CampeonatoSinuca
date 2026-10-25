@@ -32,3 +32,6 @@ Content-Type: application/json
   "genero": "Masculino",
   "modalidadesIds": [2, 3]
 }
+
+### Gerar chaveamento
+POST http://localhost:5059/api/partidas/gerar/1
