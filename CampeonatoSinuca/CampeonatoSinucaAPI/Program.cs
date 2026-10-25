@@ -6,8 +6,6 @@ builder.Services.AddDbContext<AppDataContext>();
 
 var app = builder.Build();
 
-List<Participante> participantes = new List<Participante>();
-
 app.MapGet("/", () => "Campeonato de Sinuca");
 
 //Listar
@@ -16,13 +14,13 @@ app.MapGet("/api/participantes/listar", (
 {
     if (ctx.Participantes.Count() == 0)
     {
-        return Results.BadRequest("A lista de participantes está vazia");
+        return Results.NotFound("A lista de participantes está vazia");
     }
     return Results.Ok(ctx.Participantes.ToList());
 });
 
 //Cadastrar
-app.MapPost("/api/participante/cadastrar", 
+app.MapPost("/api/participantes/cadastrar", 
     ([FromBody] Participante? participante,
     [FromServices] AppDataContext ctx) =>
 {
@@ -84,17 +82,75 @@ app.MapPost("/api/participante/cadastrar",
     return Results.Created("", participante);
 });
 
-app.MapGet("/api/participante/buscar/{Cpf}", 
+app.MapGet("/api/participantes/buscar/{Cpf}", 
     ([FromRoute] string cpf,
     [FromServices] AppDataContext ctx) =>
 {
-    //Expressão lambda
-    Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpf);
+    string cpfTratado = new string(cpf.Where(char.IsDigit).ToArray());
+    Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
     if (participanteEncontrado is null)
     {
         return Results.NotFound("Participante nao encontrado!");
     }
     return Results.Ok(participanteEncontrado);    
 });
+
+app.MapDelete("/api/participantes/remover/{Cpf}", 
+    ([FromRoute] string cpf,
+    [FromServices] AppDataContext ctx) =>
+{
+    string cpfTratado = new string(cpf.Where(char.IsDigit).ToArray());
+    Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
+    if (participanteEncontrado is null)
+    {
+        return Results.NotFound("Participante nao encontrado!");
+    }
+    ctx.Participantes.Remove(participanteEncontrado);
+    ctx.SaveChanges();
+    return Results.Ok(participanteEncontrado);    
+
+});
+
+app.MapPut("/api/participantes/alterar/{Cpf}", 
+    ([FromRoute] string cpf, 
+    [FromBody] Participante participanteAlterado,
+    [FromServices] AppDataContext ctx) =>
+{
+    string cpfTratado = new string(cpf.Where(char.IsDigit).ToArray());
+    Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
+    if (participanteEncontrado is null)
+    {
+        return Results.NotFound("Participante nao encontrado!");
+    }
+    
+    if (string.IsNullOrWhiteSpace(participanteAlterado.Nome))
+    {
+        return Results.BadRequest("O nome não pode ser vazio");
+    }
+    string nomeTratado = participanteAlterado.Nome.Trim();
+    participanteAlterado.Nome = nomeTratado;
+    
+    if (string.IsNullOrWhiteSpace(participanteAlterado.Genero))
+    {
+        return Results.BadRequest("O campo Genero não pode ser vazio");
+    }
+    string generoTratado = participanteAlterado.Genero.ToLower().Trim();
+    if (generoTratado != "masculino" && generoTratado != "feminino")
+    {
+        return Results.BadRequest("O campo Gênero deve ser 'Masculino' ou 'Feminino'.");
+    }
+    participanteAlterado.Genero = char.ToUpper(generoTratado[0]) + generoTratado.Substring(1);
+    
+    if (participanteAlterado.Idade < 12 || participanteAlterado.Idade > 120)
+    {
+        return Results.BadRequest("O participante nao esta apto a competir");
+    }
+    participanteEncontrado.Nome = participanteAlterado.Nome;
+    participanteEncontrado.Genero = participanteAlterado.Genero;
+    participanteEncontrado.Idade = participanteAlterado.Idade;
+    ctx.SaveChanges();
+    return Results.Ok(participanteEncontrado);    
+});
+
 
 app.Run();
