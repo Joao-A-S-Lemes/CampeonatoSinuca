@@ -1,7 +1,5 @@
 # 🎱 Campeonato de Sinuca — API de Inscrições e Chaveamento
 
-> ⚠️ **ANTES DE ENTREGAR:** procurem por `PREENCHER` neste arquivo e completem tudo. Depois apaguem estas observações em destaque.
-
 ---
 
 ## 1. Identificação do projeto
