@@ -314,4 +314,37 @@ app.MapPut("/api/partidas/vencedor/{partidaId}/{vencedorId}",
     return Results.Ok(partida);
 });
 
+//Ranking por modalidade
+app.MapGet("/api/partidas/ranking/{modalidadeId}",
+    ([FromRoute] int modalidadeId,
+    [FromServices] AppDataContext ctx) =>
+{
+    Modalidade? modalidade = ctx.Modalidades.Find(modalidadeId);
+    if (modalidade is null)
+    {
+        return Results.NotFound("Modalidade inválida!");
+    }
+
+    //Conta as vitorias de cada participante nessa modalidade
+    var vitorias = ctx.Partidas
+        .Where(p => p.ModalidadeId == modalidadeId && p.VencedorId != null)
+        .GroupBy(p => p.VencedorId!.Value)
+        .Select(g => new { ParticipanteId = g.Key, Vitorias = g.Count() })
+        .OrderByDescending(r => r.Vitorias)
+        .ToList();
+
+    //Troca o id pelo nome 
+    var ranking = vitorias.Select(r => new
+    {
+        Participante = ctx.Participantes.Find(r.ParticipanteId)!.Nome,
+        r.Vitorias
+    }).ToList();
+
+    return Results.Ok(new
+    {
+        Modalidade = modalidade.Nome,
+        Ranking = ranking
+    });
+});
+
 app.Run();

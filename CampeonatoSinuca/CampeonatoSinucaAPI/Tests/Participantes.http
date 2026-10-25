@@ -33,8 +33,23 @@ Content-Type: application/json
   "modalidadesIds": [2, 3]
 }
 
-### Gerar chaveamento
+### Gerar chaveamento 8 ball
 POST http://localhost:5059/api/partidas/gerar/1
 
+### Gerar chaveamento 9 ball
+POST http://localhost:5059/api/partidas/gerar/2
+
+### Gerar chaveamento snooker 15 reds
+POST http://localhost:5059/api/partidas/gerar/3
+
 ### Registrar vencedor
-PUT http://localhost:5059/api/partidas/vencedor/1/11
+PUT http://localhost:5059/api/partidas/vencedor/1/1
+
+### Ranking da modalidade 8 ball
+GET http://localhost:5059/api/partidas/ranking/1
+
+### Ranking da modalidade 9 ball
+GET http://localhost:5059/api/partidas/ranking/2
+
+### Ranking da modalidade snooker 15 reds
+GET http://localhost:5059/api/partidas/ranking/3
