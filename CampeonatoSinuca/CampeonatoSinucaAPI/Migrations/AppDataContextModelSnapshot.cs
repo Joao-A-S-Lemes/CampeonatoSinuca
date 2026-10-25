@@ -15,6 +15,60 @@ namespace CampeonatoSinucaAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.32");
 
+            modelBuilder.Entity("Inscricao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModalidadeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ParticipanteId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModalidadeId");
+
+                    b.HasIndex("ParticipanteId", "ModalidadeId")
+                        .IsUnique();
+
+                    b.ToTable("Inscricoes");
+                });
+
+            modelBuilder.Entity("Modalidade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Modalidades");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "8 Ball"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "9 Ball"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Snooker 15 reds"
+                        });
+                });
+
             modelBuilder.Entity("Participante", b =>
                 {
                     b.Property<int>("Id")
@@ -41,7 +95,26 @@ namespace CampeonatoSinucaAPI.Migrations
                     b.HasIndex("Cpf")
                         .IsUnique();
 
-                    b.ToTable("Participantes", (string)null);
+                    b.ToTable("Participantes");
+                });
+
+            modelBuilder.Entity("Inscricao", b =>
+                {
+                    b.HasOne("Modalidade", "Modalidade")
+                        .WithMany()
+                        .HasForeignKey("ModalidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Participante", "Participante")
+                        .WithMany()
+                        .HasForeignKey("ParticipanteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Modalidade");
+
+                    b.Navigation("Participante");
                 });
 #pragma warning restore 612, 618
         }
