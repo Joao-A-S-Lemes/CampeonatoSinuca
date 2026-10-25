@@ -1,13 +1,13 @@
 ### Raíz do projeto
 GET http://localhost:5059
 
-### Listar
+### Buscar
 GET http://localhost:5059/api/participantes/buscar/12345678900
 
-### Buscar
+### Listar
 GET http://localhost:5059/api/participantes/listar
 
-### Deletar
+### Remover
 DELETE http://localhost:5059/api/participantes/remover/12345678900
 
 ### Cadastrar Participante
@@ -15,10 +15,11 @@ POST http://localhost:5059/api/participantes/cadastrar
 Content-Type: application/json
 
 {
-    "Nome" : "Pedrinho Matador",
-    "Cpf" : "123.456.789-00",
-    "Idade" : 120,
-    "Genero" : "FEminInO"
+  "nome": "João",
+  "cpf": "123.456.789-00",
+  "idade": 30,
+  "genero": "Masculino",
+  "modalidadesIds": [1, 3]
 }
 
 ### Alterar Participante
@@ -26,7 +27,8 @@ PUT http://localhost:5059/api/participantes/alterar/123.456.789-00
 Content-Type: application/json
 
 {
-    "Nome" : "Eduardo",
-    "Genero" : "MasCulino",
-    "Idade" : 23
+  "nome": "Antonio",
+  "idade": 30,
+  "genero": "Masculino",
+  "modalidadesIds": [2, 3]
 }
