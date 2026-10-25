@@ -53,3 +53,6 @@ GET http://localhost:5059/api/partidas/ranking/2
 
 ### Ranking da modalidade snooker 15 reds
 GET http://localhost:5059/api/partidas/ranking/3
+
+### Listar modalidades
+GET http://localhost:5059/api/modalidades/listar

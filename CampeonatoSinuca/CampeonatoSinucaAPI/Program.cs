@@ -355,4 +355,11 @@ app.MapGet("/api/partidas/ranking/{modalidadeId}",
     });
 });
 
+//Listar modalidades disponíveis
+app.MapGet("/api/modalidades/listar", (
+    [FromServices] AppDataContext ctx) =>
+{
+    return Results.Ok(ctx.Modalidades.ToList());
+});
+
 app.Run();
