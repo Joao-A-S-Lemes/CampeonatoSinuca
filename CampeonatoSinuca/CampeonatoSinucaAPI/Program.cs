@@ -12,11 +12,22 @@ app.MapGet("/", () => "Campeonato de Sinuca");
 app.MapGet("/api/participantes/listar", (
     [FromServices] AppDataContext ctx) =>
 {
-    if (ctx.Participantes.Count() == 0)
-    {
-        return Results.NotFound("A lista de participantes está vazia");
-    }
-    return Results.Ok(ctx.Participantes.ToList());
+    var participantes = ctx.Participantes
+        .Select(p => new
+        {
+            p.Id,
+            p.Nome,
+            p.Cpf,
+            p.Idade,
+            p.Genero,
+            Modalidades = ctx.Inscricoes
+                .Where(i => i.ParticipanteId == p.Id)
+                .Select(i => i.Modalidade!.Nome)
+                .ToList()
+        })
+        .ToList();
+
+    return Results.Ok(participantes);
 });
 
 //Cadastrar
@@ -140,7 +151,18 @@ app.MapGet("/api/participantes/buscar/{Cpf}",
     {
         return Results.NotFound("Participante nao encontrado!");
     }
-    return Results.Ok(participanteEncontrado);    
+    return Results.Ok(new
+    {
+        participanteEncontrado.Id,
+        participanteEncontrado.Nome,
+        participanteEncontrado.Cpf,
+        participanteEncontrado.Idade,
+        participanteEncontrado.Genero,
+        Modalidades = ctx.Inscricoes
+            .Where(i => i.ParticipanteId == participanteEncontrado.Id)
+            .Select(i => i.Modalidade!.Nome)
+            .ToList()
+    });  
 });
 
 app.MapDelete("/api/participantes/remover/{Cpf}", 
