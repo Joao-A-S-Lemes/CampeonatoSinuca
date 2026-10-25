@@ -41,7 +41,7 @@ namespace CampeonatoSinucaAPI.Migrations
                     b.HasIndex("Cpf")
                         .IsUnique();
 
-                    b.ToTable("Participantes");
+                    b.ToTable("Participantes", (string)null);
                 });
 #pragma warning restore 612, 618
         }

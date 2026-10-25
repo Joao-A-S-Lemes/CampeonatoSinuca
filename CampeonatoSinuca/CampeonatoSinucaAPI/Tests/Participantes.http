@@ -10,7 +10,12 @@ Content-Type: application/json
 
 {
     "Nome" : "João",
-    "Cpf" : "12345678900",
+    "Cpf" : "123.456.789-00",
     "Idade" : 19,
-    "Genero" : "Masculino"
+    "Genero" : "masCulino",
+
+    "Nome" : "Pedro",
+    "Cpf" : "00000000000",
+    "Idade" : 15,
+    "Genero" : "maSculino"
 }
