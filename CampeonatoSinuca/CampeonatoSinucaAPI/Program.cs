@@ -153,6 +153,14 @@ app.MapDelete("/api/participantes/remover/{Cpf}",
     {
         return Results.NotFound("Participante nao encontrado!");
     }
+    //Nao pode remover quem ja tem partida
+    bool temPartida = ctx.Partidas.Any(p =>
+        p.Participante1Id == participanteEncontrado.Id ||
+        p.Participante2Id == participanteEncontrado.Id);
+    if (temPartida) 
+    {
+        return Results.BadRequest("O Participante já possui pelo menos 1 partida e por isso não pode ser removido!");
+    }
     ctx.Participantes.Remove(participanteEncontrado);
     ctx.SaveChanges();
     return Results.Ok(participanteEncontrado);    
