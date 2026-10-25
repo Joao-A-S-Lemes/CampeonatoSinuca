@@ -8,30 +8,11 @@ GET http://localhost:5059/api/participantes/buscar/12345678900
 GET http://localhost:5059/api/participantes/listar
 
 ### Remover
-DELETE http://localhost:5059/api/participantes/remover/12345678900
+DELETE http://localhost:5059/api/participantes/remover/90000000100
 
 ### Cadastrar Participante
 POST http://localhost:5059/api/participantes/cadastrar
 Content-Type: application/json
-
-{
-  "nome": "João",
-  "cpf": "123.456.789-00",
-  "idade": 30,
-  "genero": "Masculino",
-  "modalidadesIds": [1, 3]
-}
-
-### Alterar Participante
-PUT http://localhost:5059/api/participantes/alterar/123.456.789-00
-Content-Type: application/json
-
-{
-  "nome": "Antonio",
-  "idade": 30,
-  "genero": "Masculino",
-  "modalidadesIds": [2, 3]
-}
 
 ### Gerar chaveamento 8 ball
 POST http://localhost:5059/api/partidas/gerar/1
@@ -43,7 +24,7 @@ POST http://localhost:5059/api/partidas/gerar/2
 POST http://localhost:5059/api/partidas/gerar/3
 
 ### Registrar vencedor
-PUT http://localhost:5059/api/partidas/vencedor/1/1
+PUT http://localhost:5059/api/partidas/vencedor/1/6
 
 ### Ranking da modalidade 8 ball
 GET http://localhost:5059/api/partidas/ranking/1

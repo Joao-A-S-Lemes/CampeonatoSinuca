@@ -12,6 +12,10 @@ app.MapGet("/", () => "Campeonato de Sinuca");
 app.MapGet("/api/participantes/listar", (
     [FromServices] AppDataContext ctx) =>
 {
+    if (ctx.Participantes.Count() == 0 )
+    {
+        return Results.NotFound("Nenhum participante cadastrado.");
+    }
     var participantes = ctx.Participantes
         .Select(p => new
         {
@@ -58,13 +62,13 @@ app.MapPost("/api/participantes/cadastrar",
     //Verificacao simples de cpf pela quantidade de caracteres, uma verificacao mais seria utilizaria a formula de veracidade do cpf
     if (cpfTratado.Length != 11)
     {
-        return Results.BadRequest("CPF Invalido");
+        return Results.BadRequest("CPF Inválido");
     }
 
     //---------- Genero ----------
     if (string.IsNullOrWhiteSpace(request.Genero))
     {
-        return Results.BadRequest("O campo Genero não pode ser vazio");
+        return Results.BadRequest("O campo Gênero não pode ser vazio");
     }
     string generoTratado = request.Genero.ToLower().Trim();
     //Limita a entrada de genero para Masculino e Feminino para separacao por categoria
@@ -78,7 +82,7 @@ app.MapPost("/api/participantes/cadastrar",
     //---------- Idade ----------
     if (request.Idade < 12 || request.Idade > 120)
     {
-        return Results.BadRequest("O participante nao esta apto a competir");
+        return Results.BadRequest("O participante não está apto a competir");
     }
 
     //---------- Modalidades ----------
@@ -149,7 +153,7 @@ app.MapGet("/api/participantes/buscar/{Cpf}",
     Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
     if (participanteEncontrado is null)
     {
-        return Results.NotFound("Participante nao encontrado!");
+        return Results.NotFound("Participante não encontrado!");
     }
     return Results.Ok(new
     {
@@ -173,7 +177,7 @@ app.MapDelete("/api/participantes/remover/{Cpf}",
     Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
     if (participanteEncontrado is null)
     {
-        return Results.NotFound("Participante nao encontrado!");
+        return Results.NotFound("Participante não encontrado!");
     }
     //Nao pode remover quem ja tem partida
     bool temPartida = ctx.Partidas.Any(p =>
@@ -200,7 +204,7 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
     Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
     if (participanteEncontrado is null)
     {
-        return Results.NotFound("Participante nao encontrado!");
+        return Results.NotFound("Participante não encontrado!");
     }
 
     //---------- Nome ----------
@@ -213,7 +217,7 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
     //---------- Genero ----------
     if (string.IsNullOrWhiteSpace(participanteAlterado.Genero))
     {
-        return Results.BadRequest("O campo Genero não pode ser vazio");
+        return Results.BadRequest("O campo Gênero não pode ser vazio");
     }
     string generoTratado = participanteAlterado.Genero.ToLower().Trim();
     if (generoTratado != "masculino" && generoTratado != "feminino")
@@ -225,7 +229,7 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
     //---------- Idade ----------
     if (participanteAlterado.Idade < 12 || participanteAlterado.Idade > 120)
     {
-        return Results.BadRequest("O participante nao esta apto a competir");
+        return Results.BadRequest("O participante não está apto a competir");
     }
 
     //---------- Modalidades ----------
