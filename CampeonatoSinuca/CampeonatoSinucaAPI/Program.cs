@@ -290,4 +290,28 @@ app.MapPost("/api/partidas/gerar/{modalidadeId}",
     return Results.Ok(partidas);
 });
 
+//Registrar vencedor
+app.MapPut("/api/partidas/vencedor/{partidaId}/{vencedorId}",
+    ([FromRoute] int partidaId,
+    [FromRoute] int vencedorId,
+    [FromServices] AppDataContext ctx) =>
+{
+    Partida? partida = ctx.Partidas.Find(partidaId);
+    if (partida is null)
+    {
+        return Results.NotFound("Partida não encontrada!");
+    }
+
+    //O vencedor precisa ser um dos dois jogadores da partida
+    if (vencedorId != partida.Participante1Id && vencedorId != partida.Participante2Id)
+    {
+        return Results.BadRequest("O vencedor deve ser um dos participantes da partida");
+    }
+
+    partida.VencedorId = vencedorId;
+    ctx.SaveChanges();
+
+    return Results.Ok(partida);
+});
+
 app.Run();

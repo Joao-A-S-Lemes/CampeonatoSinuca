@@ -35,3 +35,6 @@ Content-Type: application/json
 
 ### Gerar chaveamento
 POST http://localhost:5059/api/partidas/gerar/1
+
+### Registrar vencedor
+PUT http://localhost:5059/api/partidas/vencedor/1/11
