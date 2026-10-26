@@ -1,0 +1,15 @@
+### Raíz do projeto
+GET http://localhost:5059
+
+### Buscar
+GET http://localhost:5059/api/participantes/buscar/12345678900
+
+### Listar
+GET http://localhost:5059/api/participantes/listar
+
+### Remover
+DELETE http://localhost:5059/api/participantes/remover/90000000100
+
+### Cadastrar Participante
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json

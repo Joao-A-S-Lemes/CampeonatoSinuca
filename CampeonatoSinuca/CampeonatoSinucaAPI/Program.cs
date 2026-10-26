@@ -59,14 +59,14 @@ app.MapPost("/api/participantes/cadastrar",
         return Results.BadRequest("O participante não pode ser nulo");
     }
 
-    //---------- Nome ----------
+    //Nome
     if (string.IsNullOrWhiteSpace(request.Nome))
     {
         return Results.BadRequest("O nome não pode ser vazio");
     }
     string nomeTratado = request.Nome.Trim();
 
-    //---------- CPF ----------
+    //Cpf
     if (string.IsNullOrWhiteSpace(request.Cpf))
     {
         return Results.BadRequest("O Cpf não pode ser vazio");
@@ -79,7 +79,7 @@ app.MapPost("/api/participantes/cadastrar",
         return Results.BadRequest("CPF Inválido");
     }
 
-    //---------- Genero ----------
+    //Genero
     if (string.IsNullOrWhiteSpace(request.Genero))
     {
         return Results.BadRequest("O campo Gênero não pode ser vazio");
@@ -93,13 +93,13 @@ app.MapPost("/api/participantes/cadastrar",
     //Deixa apenas a primeira letra maiuscula
     string generoFinal = char.ToUpper(generoTratado[0]) + generoTratado.Substring(1);
 
-    //---------- Idade ----------
+    //Idade
     if (request.Idade < 12 || request.Idade > 120)
     {
         return Results.BadRequest("O participante não está apto a competir");
     }
 
-    //---------- Modalidades ----------
+    //Modadlidades
     if (request.ModalidadesIds is null || request.ModalidadesIds.Count == 0)
     {
         return Results.BadRequest("O participante deve escolher pelo menos uma modalidade");
@@ -118,7 +118,6 @@ app.MapPost("/api/participantes/cadastrar",
         return Results.BadRequest("Uma ou mais modalidades não existem");
     }
 
-    //---------- CPF duplicado ----------
     //Verifica a existencia de um participante a partir do cpf, nao pelo nome pois o nome pode se repetir
     Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
     if (participanteEncontrado is not null)
@@ -126,7 +125,7 @@ app.MapPost("/api/participantes/cadastrar",
         return Results.BadRequest("Esse participante já foi cadastrado!");
     }
 
-    //---------- Gravacao ----------
+    //Gravacao
     Participante participante = new Participante
     {
         Nome = nomeTratado,
@@ -213,7 +212,7 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
     [FromBody] ParticipanteRequest participanteAlterado,
     [FromServices] AppDataContext ctx) =>
 {
-    //---------- Busca do participante ----------
+    //Busca do participante
     string cpfTratado = new string(cpf.Where(char.IsDigit).ToArray());
     Participante? participanteEncontrado = ctx.Participantes.FirstOrDefault(x => x.Cpf == cpfTratado);
     if (participanteEncontrado is null)
@@ -221,14 +220,14 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
         return Results.NotFound("Participante não encontrado!");
     }
 
-    //---------- Nome ----------
+    //Nome
     if (string.IsNullOrWhiteSpace(participanteAlterado.Nome))
     {
         return Results.BadRequest("O nome não pode ser vazio");
     }
     string nomeTratado = participanteAlterado.Nome.Trim();
 
-    //---------- Genero ----------
+    //Genero
     if (string.IsNullOrWhiteSpace(participanteAlterado.Genero))
     {
         return Results.BadRequest("O campo Gênero não pode ser vazio");
@@ -240,13 +239,13 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
     }
     string generoFinal = char.ToUpper(generoTratado[0]) + generoTratado.Substring(1);
 
-    //---------- Idade ----------
+    //Idade
     if (participanteAlterado.Idade < 12 || participanteAlterado.Idade > 120)
     {
         return Results.BadRequest("O participante não está apto a competir");
     }
 
-    //---------- Modalidades ----------
+    //Modalidades
     if (participanteAlterado.ModalidadesIds is null || participanteAlterado.ModalidadesIds.Count == 0)
     {
         return Results.BadRequest("O participante deve escolher pelo menos uma modalidade");
@@ -265,7 +264,7 @@ app.MapPut("/api/participantes/alterar/{Cpf}",
         return Results.BadRequest("Uma ou mais modalidades não existem");
     }
 
-    //---------- Atualizacao (so depois de todas as validacoes) ----------
+    //Atualizacao (so depois de todas as validacoes)
     //O CPF nao e alterado, pois identifica o participante
     participanteEncontrado.Nome = nomeTratado;
     participanteEncontrado.Genero = generoFinal;

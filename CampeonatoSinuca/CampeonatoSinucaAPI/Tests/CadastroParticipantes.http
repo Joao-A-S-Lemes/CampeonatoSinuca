@@ -1,0 +1,463 @@
+### 01 - Ana Souza
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Ana Souza",
+  "cpf": "900.000.001-00",
+  "idade": 25,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1,
+    2,
+    3
+  ]
+}
+
+### 02 - Bruno Lima
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Bruno Lima",
+  "cpf": "900.000.002-00",
+  "idade": 32,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1,
+    2,
+    3
+  ]
+}
+
+### 03 - Carlos Mendes
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Carlos Mendes",
+  "cpf": "900.000.003-00",
+  "idade": 39,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1,
+    2,
+    3
+  ]
+}
+
+### 04 - Daniela Rocha
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Daniela Rocha",
+  "cpf": "900.000.004-00",
+  "idade": 46,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1,
+    2,
+    3
+  ]
+}
+
+### 05 - Eduardo Pires
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Eduardo Pires",
+  "cpf": "900.000.005-00",
+  "idade": 53,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1,
+    2
+  ]
+}
+
+### 06 - Fernanda Alves
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Fernanda Alves",
+  "cpf": "900.000.006-00",
+  "idade": 22,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1,
+    2
+  ]
+}
+
+### 07 - Gabriel Costa
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Gabriel Costa",
+  "cpf": "900.000.007-00",
+  "idade": 29,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1,
+    2
+  ]
+}
+
+### 08 - Helena Martins
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Helena Martins",
+  "cpf": "900.000.008-00",
+  "idade": 36,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1,
+    3
+  ]
+}
+
+### 09 - Igor Ferreira
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Igor Ferreira",
+  "cpf": "900.000.009-00",
+  "idade": 43,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1,
+    3
+  ]
+}
+
+### 10 - Juliana Barros
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Juliana Barros",
+  "cpf": "900.000.010-00",
+  "idade": 50,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1,
+    3
+  ]
+}
+
+### 11 - Kaique Nunes
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Kaique Nunes",
+  "cpf": "900.000.011-00",
+  "idade": 19,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    2,
+    3
+  ]
+}
+
+### 12 - Larissa Dias
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Larissa Dias",
+  "cpf": "900.000.012-00",
+  "idade": 26,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    2,
+    3
+  ]
+}
+
+### 13 - Marcelo Teixeira
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Marcelo Teixeira",
+  "cpf": "900.000.013-00",
+  "idade": 33,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1
+  ]
+}
+
+### 14 - Natalia Gomes
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Natalia Gomes",
+  "cpf": "900.000.014-00",
+  "idade": 40,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1
+  ]
+}
+
+### 15 - Otavio Ramos
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Otavio Ramos",
+  "cpf": "900.000.015-00",
+  "idade": 47,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1
+  ]
+}
+
+### 16 - Patricia Cardoso
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Patricia Cardoso",
+  "cpf": "900.000.016-00",
+  "idade": 54,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1
+  ]
+}
+
+### 17 - Rafael Moreira
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Rafael Moreira",
+  "cpf": "900.000.017-00",
+  "idade": 23,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    1
+  ]
+}
+
+### 18 - Sabrina Araujo
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Sabrina Araujo",
+  "cpf": "900.000.018-00",
+  "idade": 30,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    1
+  ]
+}
+
+### 19 - Thiago Ribeiro
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Thiago Ribeiro",
+  "cpf": "900.000.019-00",
+  "idade": 37,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 20 - Vanessa Castro
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Vanessa Castro",
+  "cpf": "900.000.020-00",
+  "idade": 44,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 21 - Wagner Freitas
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Wagner Freitas",
+  "cpf": "900.000.021-00",
+  "idade": 51,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 22 - Yasmin Lopes
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Yasmin Lopes",
+  "cpf": "900.000.022-00",
+  "idade": 20,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 23 - Zeca Monteiro
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Zeca Monteiro",
+  "cpf": "900.000.023-00",
+  "idade": 27,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 24 - Amanda Correia
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Amanda Correia",
+  "cpf": "900.000.024-00",
+  "idade": 34,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 25 - Bernardo Pinto
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Bernardo Pinto",
+  "cpf": "900.000.025-00",
+  "idade": 41,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    2
+  ]
+}
+
+### 26 - Camila Duarte
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Camila Duarte",
+  "cpf": "900.000.026-00",
+  "idade": 48,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    3
+  ]
+}
+
+### 27 - Diego Santana
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Diego Santana",
+  "cpf": "900.000.027-00",
+  "idade": 55,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    3
+  ]
+}
+
+### 28 - Elisa Farias
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Elisa Farias",
+  "cpf": "900.000.028-00",
+  "idade": 24,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    3
+  ]
+}
+
+### 29 - Felipe Batista
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Felipe Batista",
+  "cpf": "900.000.029-00",
+  "idade": 31,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    3
+  ]
+}
+
+### 30 - Giovana Melo
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Giovana Melo",
+  "cpf": "900.000.030-00",
+  "idade": 38,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    3
+  ]
+}
+
+### 31 - Henrique Viana
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Henrique Viana",
+  "cpf": "900.000.031-00",
+  "idade": 45,
+  "genero": "Masculino",
+  "modalidadesIds": [
+    3
+  ]
+}
+
+### 32 - Isabela Cunha
+POST http://localhost:5059/api/participantes/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Isabela Cunha",
+  "cpf": "900.000.032-00",
+  "idade": 52,
+  "genero": "Feminino",
+  "modalidadesIds": [
+    3
+  ]
+}
