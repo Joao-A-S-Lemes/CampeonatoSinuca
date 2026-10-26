@@ -1,39 +1,125 @@
+@baseUrl = http://localhost:5059
+
+###############################################
+# GERAL
+###############################################
+
 ### Raíz do projeto
-GET http://localhost:5059
+GET {{baseUrl}}
 
-### Buscar
-GET http://localhost:5059/api/participantes/buscar/12345678900
+### Listar modalidades (1 = 8 Ball, 2 = 9 Ball, 3 = Snooker 15 reds)
+GET {{baseUrl}}/api/modalidades/listar
 
-### Listar
-GET http://localhost:5059/api/participantes/listar
+###############################################
+# PARTICIPANTES (CRUD)
+###############################################
 
-### Remover
-DELETE http://localhost:5059/api/participantes/remover/90000000100
-
-### Cadastrar Participante
-POST http://localhost:5059/api/participantes/cadastrar
+### Cadastrar participante
+POST {{baseUrl}}/api/participantes/cadastrar
 Content-Type: application/json
 
-### Gerar chaveamento 8 ball
-POST http://localhost:5059/api/partidas/gerar/1
+{
+  "nome": "Lucas Pereira",
+  "cpf": "111.222.333-44",
+  "idade": 16,
+  "genero": "Masculino",
+  "modalidadesIds": [1, 3]
+}
 
-### Gerar chaveamento 9 ball
-POST http://localhost:5059/api/partidas/gerar/2
+### Listar participantes
+GET {{baseUrl}}/api/participantes/listar
 
-### Gerar chaveamento snooker 15 reds
-POST http://localhost:5059/api/partidas/gerar/3
+### Buscar participante
+GET {{baseUrl}}/api/participantes/buscar/11122233344
+
+### Alterar participante
+PUT {{baseUrl}}/api/participantes/alterar/11122233344
+Content-Type: application/json
+
+{
+  "nome": "Lucas Pereira Silva",
+  "idade": 17,
+  "genero": "Masculino",
+  "modalidadesIds": [2, 3]
+}
+
+### Remover participante
+DELETE {{baseUrl}}/api/participantes/remover/11122233344
+
+
+###############################################
+# CAMPEONATO - 1) GERAR CHAVEAMENTO
+###############################################
+
+### Gerar chaveamento - 8 Ball
+POST {{baseUrl}}/api/partidas/gerar/1
+
+### Gerar chaveamento - 9 Ball
+POST {{baseUrl}}/api/partidas/gerar/2
+
+### Gerar chaveamento - Snooker 15 reds
+POST {{baseUrl}}/api/partidas/gerar/3
+
+
+###############################################
+# CAMPEONATO - 2) VER AS PARTIDAS
+###############################################
+
+### Listar partidas - 8 Ball
+GET {{baseUrl}}/api/partidas/listar/1
+
+### Listar partidas - 9 Ball
+GET {{baseUrl}}/api/partidas/listar/2
+
+### Listar partidas - Snooker 15 reds
+GET {{baseUrl}}/api/partidas/listar/3
+
+
+###############################################
+# CAMPEONATO - 3) REGISTRAR VENCEDOR
+###############################################
 
 ### Registrar vencedor
-PUT http://localhost:5059/api/partidas/vencedor/1/6
+# /vencedor/{id da partida}/{id do participante vencedor}
+# Ids visíveis no listar partidas
+PUT {{baseUrl}}/api/partidas/vencedor/1/6
 
-### Ranking da modalidade 8 ball
-GET http://localhost:5059/api/partidas/ranking/1
+###############################################
+# CAMPEONATO - 4) AVANCAR DE FASE
+###############################################
+# Quando todas as partidas da fase tem vencedor, cria a proxima fase.
+# Na semifinal tambem cria a disputa de terceiro lugar.
+# Se a fase ainda não terminou, apenas avisa.
 
-### Ranking da modalidade 9 ball
-GET http://localhost:5059/api/partidas/ranking/2
+### Avancar fase - 8 Ball
+POST {{baseUrl}}/api/partidas/avancar/1
 
-### Ranking da modalidade snooker 15 reds
-GET http://localhost:5059/api/partidas/ranking/3
+### Avancar fase - 9 Ball
+POST {{baseUrl}}/api/partidas/avancar/2
 
-### Listar modalidades
-GET http://localhost:5059/api/modalidades/listar
+### Avancar fase - Snooker 15 reds
+POST {{baseUrl}}/api/partidas/avancar/3
+
+
+###############################################
+# CAMPEONATO - 5) RANKING E CLASSIFICACAO
+###############################################
+
+### Ranking de vitorias - 8 Ball
+GET {{baseUrl}}/api/partidas/ranking/1
+
+### Ranking de vitorias - 9 Ball
+GET {{baseUrl}}/api/partidas/ranking/2
+
+### Ranking de vitorias - Snooker 15 reds
+GET {{baseUrl}}/api/partidas/ranking/3
+
+### Classificacao final (campeao, vice e terceiro) - 8 Ball
+# Endpoint do proximo passo
+GET {{baseUrl}}/api/partidas/classificacao/1
+
+### Classificacao final - 9 Ball
+GET {{baseUrl}}/api/partidas/classificacao/2
+
+### Classificacao final - Snooker 15 reds
+GET {{baseUrl}}/api/partidas/classificacao/3

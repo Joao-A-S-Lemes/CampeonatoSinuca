@@ -105,7 +105,15 @@ namespace CampeonatoSinucaAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Fase")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ModalidadeId")
