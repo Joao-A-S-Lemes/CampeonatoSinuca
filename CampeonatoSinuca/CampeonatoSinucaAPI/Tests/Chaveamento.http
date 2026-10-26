@@ -1,11 +1,10 @@
-### Listar modalidades
-GET http://localhost:5059/api/modalidades/listar
+@baseUrl = http://localhost:5059
 
-### Gerar chaveamento 8 ball
-POST http://localhost:5059/api/partidas/gerar/1
+### Gerar chaveamento - 8 Ball
+POST {{baseUrl}}/api/partidas/gerar/1
 
-### Gerar chaveamento 9 ball
-POST http://localhost:5059/api/partidas/gerar/2
+### Gerar chaveamento - 9 Ball
+POST {{baseUrl}}/api/partidas/gerar/2
 
-### Gerar chaveamento snooker 15 reds
-POST http://localhost:5059/api/partidas/gerar/3
+### Gerar chaveamento - Snooker 15 reds
+POST {{baseUrl}}/api/partidas/gerar/3

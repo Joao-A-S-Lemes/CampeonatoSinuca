@@ -1,11 +1,64 @@
+@baseUrl = http://localhost:5059
+
+###############################################
+# CAMPEONATO - 1) VER AS PARTIDAS
+###############################################
+
+### Listar partidas - 8 Ball
+GET {{baseUrl}}/api/partidas/listar/1
+
+### Listar partidas - 9 Ball
+GET {{baseUrl}}/api/partidas/listar/2
+
+### Listar partidas - Snooker 15 reds
+GET {{baseUrl}}/api/partidas/listar/3
+
+
+###############################################
+# CAMPEONATO - 2) REGISTRAR VENCEDOR
+###############################################
+
 ### Registrar vencedor
-PUT http://localhost:5059/api/partidas/vencedor/1/6
+# /vencedor/{id da partida}/{id do participante vencedor}
+# Ids visíveis no listar partidas
+PUT {{baseUrl}}/api/partidas/vencedor/1/6
 
-### Ranking da modalidade 8 ball
-GET http://localhost:5059/api/partidas/ranking/1
+###############################################
+# CAMPEONATO - 3) AVANÇAR DE FASE
+###############################################
+# Quando todas as partidas da fase tem vencedor, cria a proxima fase.
+# Na semifinal tambem cria a disputa de terceiro lugar.
+# Se a fase ainda não terminou, apenas avisa.
 
-### Ranking da modalidade 9 ball
-GET http://localhost:5059/api/partidas/ranking/2
+### Avancar fase - 8 Ball
+POST {{baseUrl}}/api/partidas/avancar/1
 
-### Ranking da modalidade snooker 15 reds
-GET http://localhost:5059/api/partidas/ranking/3
+### Avancar fase - 9 Ball
+POST {{baseUrl}}/api/partidas/avancar/2
+
+### Avancar fase - Snooker 15 reds
+POST {{baseUrl}}/api/partidas/avancar/3
+
+
+###############################################
+# CAMPEONATO - 4) RANKING E CLASSIFICAÇÃO
+###############################################
+
+### Ranking de vitorias - 8 Ball
+GET {{baseUrl}}/api/partidas/ranking/1
+
+### Ranking de vitorias - 9 Ball
+GET {{baseUrl}}/api/partidas/ranking/2
+
+### Ranking de vitorias - Snooker 15 reds
+GET {{baseUrl}}/api/partidas/ranking/3
+
+### Classificacao final (campeao, vice e terceiro) - 8 Ball
+# Endpoint do proximo passo
+GET {{baseUrl}}/api/partidas/classificacao/1
+
+### Classificacao final - 9 Ball
+GET {{baseUrl}}/api/partidas/classificacao/2
+
+### Classificacao final - Snooker 15 reds
+GET {{baseUrl}}/api/partidas/classificacao/3
