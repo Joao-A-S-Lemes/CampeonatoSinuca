@@ -4,7 +4,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDataContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirReact", policy =>
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
 var app = builder.Build();
+
+app.UseCors("PermitirReact");
 
 //Separar categorias
 static string Categoria(Participante p) =>
