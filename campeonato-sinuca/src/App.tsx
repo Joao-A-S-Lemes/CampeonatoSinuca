@@ -12,9 +12,9 @@ function App() {
     <div>
       <h1>🎱 Campeonato de Sinuca</h1>
       <nav>
-        <button onClick={() => setAba("participantes")}>Participantes</button>
-        <button onClick={() => setAba("chaveamento")}>Chaveamento</button>
-        <button onClick={() => setAba("resultados")}>Resultados</button>
+        <button className={aba === "participantes" ? "ativo" : ""} onClick={() => setAba("participantes")}>Participantes</button>
+        <button className={aba === "chaveamento" ? "ativo" : ""} onClick={() => setAba("chaveamento")}>Chaveamento</button>
+        <button className={aba === "resultados" ? "ativo" : ""} onClick={() => setAba("resultados")}>Resultados</button>
       </nav>
       {aba === "participantes" && <Participantes />}
       {aba === "chaveamento" && <Chaveamento />}
