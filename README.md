@@ -101,6 +101,8 @@ dotnet run
 
 O arquivo do banco não é versionado: cada pessoa gera o seu com `dotnet ef database update`. A API sobe em `http://localhost:5059`.
 
+Para zerar os dados (por exemplo, antes de gerar o chaveamento de uma modalidade de novo), pare a API e rode `dotnet ef database drop --force` seguido de `dotnet ef database update`. Isso apaga participantes, inscrições e partidas, e recria as três modalidades.
+
 Para testar a API sem o front-end, use os arquivos da pasta `Tests/` (extensão `.http`, compatíveis com a extensão REST Client do VS Code):
 
 - `CadastroParticipantes.http` — cadastra 32 participantes de exemplo
@@ -145,6 +147,9 @@ Dica: para ter dados logo de início, rode o `Tests/CadastroParticipantes.http` 
 ### Front-end
 
 - Cadastro, edição e remoção de participantes, escolhendo as modalidades por caixas de seleção
+- Validação do formulário antes do envio (nome preenchido, CPF com 11 dígitos, idade entre 12 e 120 anos e pelo menos uma modalidade), com a mensagem de cada erro embaixo do campo
+- Exibição na tela das mensagens de erro da API, como CPF já cadastrado ou remoção de participante que já tem partidas
+- Confirmação antes de remover um participante e antes de definir o vencedor de uma partida
 - Escolha da modalidade e geração do chaveamento com um clique
 - Partidas agrupadas por categoria, com definição do vencedor clicando no jogador
 - Botão para avançar a fase do mata-mata
@@ -266,6 +271,8 @@ O front-end fica na pasta `campeonato-sinuca/` e consome a API acima. A navegaç
 | **Chaveamento** | Escolha da modalidade, geração do chaveamento, definição do vencedor de cada partida e avanço de fase | `GET /api/partidas/listar/{id}`, `POST /api/partidas/gerar/{id}`, `PUT /api/partidas/vencedor/{partidaId}/{vencedorId}`, `POST /api/partidas/avancar/{id}` |
 | **Resultados** | Classificação por categoria (campeão, vice e terceiro) e ranking de vitórias | `GET /api/partidas/classificacao/{id}`, `GET /api/partidas/ranking/{id}` |
 
+O formulário de Participantes valida os campos antes de enviar, com as mesmas regras da API, para dar retorno imediato ao usuário. A API continua validando por conta própria e, quando recusa algo que só ela consegue verificar (CPF já cadastrado, remoção de quem já tem partidas), a mensagem dela aparece na tela. Remover um participante e definir o vencedor de uma partida pedem confirmação, porque o vencedor não pode ser alterado depois de registrado.
+
 Todas as chamadas passam pela função `chamarApi`, em `src/services/api.ts`, que concentra a URL base, o envio de JSON e o tratamento de erros devolvidos pela API. Mais detalhes no [README do front-end](campeonato-sinuca/README.md).
 
 ---
@@ -299,10 +306,27 @@ Todas as chamadas passam pela função `chamarApi`, em `src/services/api.ts`, qu
 
 ### Parte 2 — Front-end
 
+**Ferramenta utilizada:** Claude (Anthropic), usada pelos dois integrantes de forma semelhante à da Parte 1: tirar dúvidas e revisar ou corrigir partes do código.
+
 - **CSS:** o estilo da aplicação (`campeonato-sinuca/src/index.css`) foi gerado com ferramenta de IA, conforme exigido nas instruções do projeto.
-- **Forma de uso (João):** [PREENCHER: ferramenta e o que foi feito com ela na Parte 2]
-- **Forma de uso (Leonardo):** [PREENCHER: ferramenta e o que foi feito com ela na Parte 2]
-- **Revisões realizadas pela equipe:** [PREENCHER: como o front foi testado e conferido contra a API]
+
+**Forma de uso (João):**
+
+- Leitura do repositório e comparação com os requisitos do professor, com a indicação de pontos do front-end que poderiam ser melhorados.
+- Esclarecimento de dúvidas sobre o funcionamento do projeto, como a execução do front-end e da API, o CORS e a redefinição do banco de dados.
+- Sugestão e revisão de melhorias no front-end, aplicadas e testadas pelo próprio integrante: validação do formulário de participantes, confirmação antes de definir o vencedor e alerta quando a API recusa a remoção de um participante.
+- Reorganização e redação deste README e do README do front-end, a partir do código do repositório.
+
+**Forma de uso (Leonardo):**
+
+- Esclarecimento de dúvidas e correção de partes do código do front-end (telas de participantes, chaveamento e resultados), da mesma forma que foi feito na Parte 1.
+
+**Revisões realizadas pela equipe:**
+
+- Todo código sugerido pela IA foi lido, aplicado manualmente e testado pela equipe antes do commit, com a API e o front-end em execução.
+- O fluxo completo foi conferido na tela: cadastro, edição e remoção de participantes, geração do chaveamento, definição de vencedores, avanço de fases e consulta da classificação e do ranking.
+- As mensagens de erro da API, como CPF já cadastrado e remoção de participante com partidas, foram conferidas na interface.
+- O texto deste README foi lido e conferido pela equipe contra o comportamento real da aplicação.
 
 ---
 
