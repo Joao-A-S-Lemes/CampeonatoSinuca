@@ -1,46 +1,87 @@
-# Getting Started with Create React App
+# 🎱 Campeonato de Sinuca — Front-end (React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interface web do **Campeonato de Sinuca**, desenvolvida como Parte 2 do Projeto Final de Desenvolvimento de Software Visual. Ela consome a API em C# do mesmo repositório e permite cadastrar participantes, gerar o chaveamento, registrar os resultados e consultar a classificação.
 
-## Available Scripts
+Para a descrição completa do projeto, do modelo de dados e dos endpoints, veja o [README principal](../README.md).
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Tecnologias
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React com TypeScript (projeto criado com Create React App)
+- `fetch` nativo para chamar a API, sem bibliotecas de requisição ou de interface
+- CSS puro (`src/index.css`), gerado com ferramenta de IA
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## Como executar
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Pré-requisitos:** Node.js (versão LTS) com npm, e a API em execução.
 
-### `npm run build`
+1. Suba a API (veja o [README principal](../README.md#5-como-executar)). Ela deve estar em `http://localhost:5059`.
+2. Neste diretório, instale as dependências e inicie o front:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install     # apenas na primeira vez
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Abra `http://localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Observações
 
-### `npm run eject`
+- **CORS:** a API só aceita requisições vindas de `http://localhost:3000`. Se o front rodar em outra porta, ajuste a política `PermitirReact` no `Program.cs` da API.
+- **URL da API:** está definida na constante `URL_BASE` em `src/services/api.ts`. Se a API subir em outra porta, altere ali.
+- **Dados de exemplo:** para não cadastrar um por um, rode o arquivo `CampeonatoSinuca/CampeonatoSinucaAPI/Tests/CadastroParticipantes.http` com a API ligada (cadastra 32 participantes).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Scripts disponíveis
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Comando | O que faz |
+|---|---|
+| `npm start` | Inicia o front em modo de desenvolvimento (porta 3000) |
+| `npm run build` | Gera a versão de produção na pasta `build/` |
+| `npm test` | Executa os testes, se houver |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Telas
 
-## Learn More
+A navegação é feita por três abas no topo da página (`App.tsx`).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Participantes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Formulário com nome, CPF, idade, gênero e as modalidades (caixas de seleção).
+- Cadastro de novos participantes e edição dos existentes. Na edição o CPF fica bloqueado, pois ele identifica o participante.
+- Remoção com confirmação. A API recusa remover quem já tem partidas, e o motivo aparece na tela.
+- Tabela com todos os participantes e as modalidades de cada um.
+
+### Chaveamento
+
+1. Escolha a modalidade (8 Ball, 9 Ball ou Snooker 15 reds).
+2. Clique em **Gerar chaveamento** para sortear a primeira fase. A tela avisa quem passa direto para a próxima fase e quem ficou sem adversário.
+3. As partidas aparecem agrupadas por categoria (gênero e faixa etária). Clique no nome do jogador que venceu para registrar o resultado.
+4. Quando todas as partidas da fase tiverem vencedor, clique em **Avançar fase**. O ciclo se repete até a Final e a disputa de terceiro lugar.
+
+### Resultados
+
+- **Classificação por categoria:** campeão, vice e terceiro colocado, com o status da categoria (*Em andamento* ou *Final decidida*).
+- **Ranking de vitórias:** quantas partidas cada participante venceu na modalidade escolhida.
+
+---
+
+## Estrutura do código
+
+```
+src/
+├── pages/
+│   ├── Participantes.tsx    Cadastro, edição, remoção e listagem
+│   ├── Chaveamento.tsx      Gerar chaveamento, definir vencedor, avançar fase
+│   └── Resultados.tsx       Classificação e ranking
+├── services/
+│   └── api.ts               chamarApi(): URL base, JSON e tratamento de erros
+├── App.tsx                  Navegação entre as abas
+├── index.tsx                Ponto de entrada da aplicação
+└── index.css                Estilos
+```
+
+A função `chamarApi<T>(caminho, metodo, corpo)` é usada por todas as telas. Ela envia e recebe JSON e, quando a API responde com erro (por exemplo, CPF já cadastrado), lança uma exceção com a mensagem devolvida, que a tela exibe ao usuário.

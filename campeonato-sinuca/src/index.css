@@ -255,3 +255,8 @@ input[type="checkbox"] {
     margin-left: 0;
   }
 }
+
+.erro-campo {
+  color: #c0392b;
+  font-size: 0.85rem;
+}

@@ -23,12 +23,30 @@ const formVazio = {
   modalidadesIds: [] as number[],
 };
 
+// Mesmas regras da API: nome preenchido, CPF com 11 dígitos,
+// idade entre 12 e 120 e pelo menos uma modalidade.
+function validar(form: typeof formVazio): Record<string, string> {
+  const erros: Record<string, string> = {};
+  const cpf = form.cpf.replace(/\D/g, "");
+  const idade = Number(form.idade);
+
+  if (!form.nome.trim()) erros.nome = "Informe o nome.";
+  if (cpf.length !== 11) erros.cpf = "O CPF deve ter 11 dígitos.";
+  if (!Number.isInteger(idade) || idade < 12 || idade > 120)
+    erros.idade = "A idade deve estar entre 12 e 120 anos.";
+  if (form.modalidadesIds.length === 0)
+    erros.modalidades = "Escolha pelo menos uma modalidade.";
+
+  return erros;
+}
+
 function Participantes() {
   const [lista, setLista] = useState<Participante[]>([]);
   const [modalidades, setModalidades] = useState<Modalidade[]>([]);
   const [form, setForm] = useState(formVazio);
   const [editandoCpf, setEditandoCpf] = useState<string | null>(null);
   const [mensagem, setMensagem] = useState("");
+  const [erros, setErros] = useState<Record<string, string>>({});
 
   async function carregar() {
     const dados = await chamarApi<Participante[] | string>(
@@ -56,11 +74,17 @@ function Participantes() {
   function cancelar() {
     setForm(formVazio);
     setEditandoCpf(null);
+    setErros({});
   }
 
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
     setMensagem("");
+
+    const encontrados = validar(form);
+    setErros(encontrados);
+    if (Object.keys(encontrados).length > 0) return;
+
     const corpo = {
       nome: form.nome,
       cpf: form.cpf,
@@ -84,6 +108,7 @@ function Participantes() {
 
   function editar(p: Participante) {
     setEditandoCpf(p.cpf);
+    setErros({});
     setForm({
       nome: p.nome,
       cpf: p.cpf,
@@ -116,18 +141,24 @@ function Participantes() {
           value={form.nome}
           onChange={(e) => setForm({ ...form, nome: e.target.value })}
         />
+        {erros.nome && <small className="erro-campo">{erros.nome}</small>}
+
         <input
           placeholder="CPF"
           value={form.cpf}
           disabled={editandoCpf !== null}
           onChange={(e) => setForm({ ...form, cpf: e.target.value })}
         />
+        {erros.cpf && <small className="erro-campo">{erros.cpf}</small>}
+
         <input
           placeholder="Idade"
           type="number"
           value={form.idade}
           onChange={(e) => setForm({ ...form, idade: e.target.value })}
         />
+        {erros.idade && <small className="erro-campo">{erros.idade}</small>}
+
         <select
           value={form.genero}
           onChange={(e) => setForm({ ...form, genero: e.target.value })}
@@ -148,6 +179,9 @@ function Participantes() {
             </label>
           ))}
         </div>
+        {erros.modalidades && (
+          <small className="erro-campo">{erros.modalidades}</small>
+        )}
 
         <button type="submit">{editandoCpf ? "Salvar alterações" : "Cadastrar"}</button>
         {editandoCpf && (
