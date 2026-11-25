@@ -260,3 +260,9 @@ input[type="checkbox"] {
   color: #c0392b;
   font-size: 0.85rem;
 }
+
+.busca {
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 360px;
+}

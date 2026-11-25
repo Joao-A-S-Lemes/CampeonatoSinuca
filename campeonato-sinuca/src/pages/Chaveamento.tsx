@@ -71,8 +71,9 @@ function Chaveamento() {
     }
   }
 
-  async function definirVencedor(partidaId: number, vencedorId: number) {
+  async function definirVencedor(partidaId: number, vencedorId: number, nome: string) {
     if (modalidadeId === null) return;
+    if (!window.confirm(`Confirmar ${nome} como vencedor? Essa escolha não pode ser desfeita.`)) return;
     try {
       await chamarApi(`/api/partidas/vencedor/${partidaId}/${vencedorId}`, "PUT");
       setAvisos([]);
@@ -145,14 +146,14 @@ function Chaveamento() {
                 <span className="fase">{p.fase}</span>
                 <button
                   disabled={p.vencedor !== null}
-                  onClick={() => definirVencedor(p.id, p.participante1Id)}
+                  onClick={() => definirVencedor(p.id, p.participante1Id, p.participante1)}
                 >
                   {p.participante1}
                 </button>
                 <span>x</span>
                 <button
                   disabled={p.vencedor !== null}
-                  onClick={() => definirVencedor(p.id, p.participante2Id)}
+                  onClick={() => definirVencedor(p.id, p.participante2Id, p.participante2)}
                 >
                   {p.participante2}
                 </button>

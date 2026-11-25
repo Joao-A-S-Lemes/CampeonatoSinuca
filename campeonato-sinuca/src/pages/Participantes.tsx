@@ -127,7 +127,8 @@ function Participantes() {
       await carregar();
       setMensagem("Participante removido.");
     } catch (erro) {
-      setMensagem((erro as Error).message);
+    setMensagem((erro as Error).message);
+    window.alert((erro as Error).message);
     }
   }
 
