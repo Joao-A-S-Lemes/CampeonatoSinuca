@@ -40,6 +40,10 @@ function validar(form: typeof formVazio): Record<string, string> {
   return erros;
 }
 
+function normalizar(texto: string): string {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 function Participantes() {
   const [lista, setLista] = useState<Participante[]>([]);
   const [modalidades, setModalidades] = useState<Modalidade[]>([]);
@@ -47,6 +51,7 @@ function Participantes() {
   const [editandoCpf, setEditandoCpf] = useState<string | null>(null);
   const [mensagem, setMensagem] = useState("");
   const [erros, setErros] = useState<Record<string, string>>({});
+  const [busca, setBusca] = useState("");
 
   async function carregar() {
     const dados = await chamarApi<Participante[] | string>(
@@ -132,6 +137,16 @@ function Participantes() {
     }
   }
 
+  const textoBusca = busca.trim();
+  const cpfBuscado = textoBusca.replace(/\D/g, "");
+  const buscaEhCpf = cpfBuscado !== "" && /^[\d.\-\s]+$/.test(textoBusca);
+
+  const listaFiltrada = lista.filter((p) =>
+    buscaEhCpf
+      ? p.cpf.replace(/\D/g, "").includes(cpfBuscado)
+      : normalizar(p.nome).includes(normalizar(textoBusca))
+  );
+
   return (
     <section className="pagina">
       <h2>Participantes</h2>
@@ -194,6 +209,13 @@ function Participantes() {
 
       {mensagem && <p className="mensagem">{mensagem}</p>}
 
+      <input
+        className="busca"
+        placeholder="Buscar por nome ou CPF"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+      />
+
       <table className="tabela">
         <thead>
           <tr>
@@ -206,7 +228,7 @@ function Participantes() {
           </tr>
         </thead>
         <tbody>
-          {lista.map((p) => (
+          {listaFiltrada.map((p) => (
             <tr key={p.id}>
               <td>{p.nome}</td>
               <td>{p.cpf}</td>
@@ -221,6 +243,9 @@ function Participantes() {
           ))}
         </tbody>
       </table>
+      {lista.length > 0 && listaFiltrada.length === 0 && (
+        <p>Nenhum participante encontrado.</p>
+      )}
     </section>
   );
 }
