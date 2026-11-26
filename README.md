@@ -319,7 +319,8 @@ Todas as chamadas passam pela função `chamarApi`, em `src/services/api.ts`, qu
 
 **Forma de uso (Leonardo):**
 
-- Esclarecimento de dúvidas e correção de partes do código do front-end (telas de participantes, chaveamento e resultados), da mesma forma que foi feito na Parte 1.
+- Esclarecimento de dúvidas para a criação das telas (Participantes, Chaveamento e Resultados), com navegação por abas.
+- Ajuda com problemas do ambiente.
 
 **Revisões realizadas pela equipe:**
 
